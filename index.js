@@ -1,23 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { Provider } from 'react-redux';
-import configureStore from './app/store'; 
+export * from './exports'
 
-const store = configureStore();
+import { unstable_batchedUpdates as batch } from './utils/reactBatchedUpdates'
+import { setBatch } from './utils/batch'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Provider store = {store}>
-    <App />
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+// Enable batched updates in our subscriptions for use
+// with standard React renderers (ReactDOM, React Native)
+setBatch(batch)
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+export { batch }
